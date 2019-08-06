@@ -1,5 +1,6 @@
 from flask import Flask, session, redirect, url_for, escape, request, render_template
 from datetime import timedelta
+from urllib.parse import urlparse
 import pam
 
 #https://github.com/jupyterlab/jupyterlab/blob/master/examples/app/main.py
@@ -30,7 +31,8 @@ def index():
 
 @app.route('/terminal')
 def terminal():
-    url = 'http://{0}/?src=terminal'.format(request.host)
+    o = urlparse(request.url_root)
+    url = 'http://{0}:7681/'.format(o.hostname)
     return redirect(url)
 
 @app.route('/jupyter')
