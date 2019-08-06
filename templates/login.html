@@ -58,8 +58,11 @@
             <form class="pure-form pure-form-stacked pure-u-1-2" method="POST">
 
                 <input class="pure-u-1-1" type="text" name="user" placeholder="username">
-                <input class="pure-u-1-1" type="text" name="password" placeholder="password">
+                <input class="pure-u-1-1" type="password" name="password" placeholder="password">
                 <button class="pure-u-1-1 pure-button pure-button-primary" type="submit">LOGIN</button>
+                {% if message %}
+                <p style="color:red">{{ message }}</p>
+                {% endif %}
             </form>
 
         </div>

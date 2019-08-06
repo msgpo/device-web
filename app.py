@@ -1,9 +1,13 @@
 from flask import Flask, session, redirect, url_for, escape, request, render_template
 from datetime import timedelta
+import pam
 
 #https://github.com/jupyterlab/jupyterlab/blob/master/examples/app/main.py
 # from jupyterlab_server import LabServerApp
 # LabServerApp.launch_instance()
+
+
+auth = pam.pam()
 
 app = Flask(__name__)
 app.secret_key = 'any random string x'
@@ -51,10 +55,16 @@ def login():
     print(request.args)
     print(request.method)
     if request.method == 'POST':
-        session['user'] = request.form['user']
-        session.permanent = True
-        next = request.args['next'] if 'next' in request.args else 'index'
-        return redirect(url_for(next))
+        user = request.form['user']
+        password = request.form['password']
+        if auth.authenticate(user, password):
+            session['user'] = request.form['user']
+            session.permanent = True
+            next = request.args['next'] if 'next' in request.args else 'index'
+            return redirect(url_for(next))
+        else:
+            return render_template('login.html', message='Invalid username or password')
+
     return render_template('login.html')
 
 
