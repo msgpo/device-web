@@ -8,7 +8,7 @@ The web app for VOICEN devices, built with Flask and Purecss.
 
 ### Run
 ```
-pip install flask
+pip install flask python-pam
 FLASK_APP=app.py flask run
 ```
 
