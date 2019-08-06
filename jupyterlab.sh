@@ -1,6 +1,7 @@
 #!/bin/bash
 
 [ -d ~/workspace ] || mkdir ~/workspace
+cd ~/workspace
 
 # IP=$(ip address | sed -ne '/127.0.0.1/!{s/^[ \t]*inet[ \t]*\([0-9.]\+\)\/.*$/\1/p}')
 # IP=127.0.0.1
