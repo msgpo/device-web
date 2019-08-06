@@ -27,6 +27,7 @@
         .header {
             font-weight: 400;
             font-size: 120%;
+            padding-top: 8px;
         }
 
         .pure-menu-list {
@@ -37,6 +38,14 @@
             height: 16px;
             margin-right: 16px;
             vertical-align: middle;
+        }
+
+        #login {
+            border-width: 1px;
+            border-style: solid;
+            border-color: gray;
+            border-radius: 4px;
+            margin-right: 1em;
         }
 
         .content {
@@ -101,7 +110,7 @@
                     </ul>
                 </li>
                 {% else %}
-                <li class="pure-menu-item"><a href="{{ url_for('login') }}" class="pure-menu-link">Login</a></li>
+                <li id="login" class="pure-menu-item"><a href="{{ url_for('login') }}" class="pure-menu-link">Login</a></li>
                 {% endif %}
             </ul>
         </div>
