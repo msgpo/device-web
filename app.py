@@ -1,10 +1,11 @@
 
 from datetime import timedelta
 import os
-import time
 import subprocess
 from urllib.parse import urlparse
 
+from gevent import sleep
+from gevent.pywsgi import WSGIServer
 from flask import Flask, session, redirect, url_for, escape, request, render_template, jsonify
 from notebook import notebookapp
 import pam
@@ -12,8 +13,7 @@ import pam
 auth = pam.pam()
 
 app = Flask(__name__)
-app.secret_key = 'dev'
-# app.secret_key = os.urandom(16)
+app.secret_key = os.urandom(16)
 
 # app.permanent_session_lifetime = timedelta(minutes=1)
 
@@ -43,11 +43,11 @@ def get_jupyter_servers(user):
     home_dir = '/root' if user == 'root' else '/home/{}'.format(user)
     runtime_dir = '{}/.local/share/jupyter/runtime'.format(home_dir)
     
-    for _ in range(5):
+    for _ in range(10):
         servers = list(notebookapp.list_running_servers(runtime_dir))
         if servers:
             return servers
-        time.sleep(0.2)
+        sleep(0.1)
     
     return servers
     
@@ -107,3 +107,7 @@ def logout():
     # remove the user from the session if it is there
     session.pop('user', None)
     return redirect(url_for('index'))
+
+
+http_server = WSGIServer(('', 5000), app)
+http_server.serve_forever()
