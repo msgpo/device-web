@@ -88,6 +88,9 @@ def login():
     if request.method == 'POST':
         user = request.form['user']
         password = request.form['password']
+        if user == 'root':
+            return render_template('login.html', message='Not allow root user to login')
+
         if auth.authenticate(user, password):
             session['user'] = request.form['user']
             session.permanent = True
