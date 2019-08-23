@@ -2,6 +2,7 @@
 from datetime import timedelta
 import os
 import subprocess
+import sys
 from urllib.parse import urlparse
 
 from gevent import sleep
@@ -109,5 +110,8 @@ def logout():
     return redirect(url_for('index'))
 
 
-http_server = WSGIServer(('', 5000), app)
+port = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
+print('listening on {}'.format(port))
+
+http_server = WSGIServer(('', port), app)
 http_server.serve_forever()
