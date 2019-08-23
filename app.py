@@ -53,7 +53,9 @@ def get_jupyter_servers(user):
     return servers
     
 def jupyter_server_url(server):
-    return '{}?token={}'.format(server['url'], server['token'])
+    o = urlparse(request.url_root)
+    server_url = server['url'].replace('localhost', o.hostname)
+    return '{}?token={}'.format(server_url, server['token'])
 
 def run_jupyter_server(user):
     subprocess.Popen(['sudo', '-H', '-u', user, './jupyterlab.sh'])

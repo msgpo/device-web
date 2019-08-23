@@ -111,6 +111,7 @@
                         var servers = JSON.parse(xHttp.responseText);
                         if (servers && servers.length > 0) {
                             var server_url = servers[0].url + '?token=' + servers[0].token;
+                            server_url = server_url.replace('localhost', window.location.hostname);
                             window.location.replace(server_url);
                         } else {
                             setTimeout(fetch, 1000);
