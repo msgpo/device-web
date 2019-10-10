@@ -20,10 +20,10 @@ app.secret_key = os.urandom(16)
 
 
 apps = [
-    {'name': 'Music', 'url': '#', 'icon': 'music.svg'},
-    {'name': 'Home Assistant', 'url': '#', 'icon': 'home_assistant.svg'},
-    {'name': 'Google Assistant', 'url': '#', 'icon': 'google_assistant.svg'},
-    {'name': 'Amazon Alexa', 'url': '#', 'icon': 'alexa.svg'}
+    {'name': 'Music', 'url': 'https://wiki.voicen.io/music', 'icon': 'music.svg'},
+    {'name': 'Home Assistant', 'url': 'https://wiki.voicen.io/home_assistant', 'icon': 'home_assistant.svg'},
+    {'name': 'Google Assistant', 'url': 'https://wiki.voicen.io/google_assistant', 'icon': 'google_assistant.svg'},
+    {'name': 'Amazon Alexa', 'url': 'https://wiki.voicen.io/alexa', 'icon': 'alexa.svg'}
 ]
 
 
@@ -92,7 +92,8 @@ def login():
         user = request.form['user']
         password = request.form['password']
         if user == 'root':
-            return render_template('login.html', message='Not allow root user to login')
+            return render_template('login.html',
+            message='Not allow root user to login. If you do not have a normal user yet, please go to web terminal and create one')
 
         if auth.authenticate(user, password):
             session['user'] = request.form['user']

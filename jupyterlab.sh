@@ -1,6 +1,10 @@
 #!/bin/bash
 
-[ -d ~/workspace ] || mkdir ~/workspace
-cd ~/workspace
+SRC=$(dirname "$BASH_SOURCE")
+cd $SRC
 
-jupyter-lab  -y --no-browser --allow-root --ip '' --notebook-dir ~/workspace
+test -d ~/notebook || cp -R notebook ~
+cd ~/notebook
+
+jupyter-lab  -y --no-browser --ip '' --notebook-dir ~/notebook
+
